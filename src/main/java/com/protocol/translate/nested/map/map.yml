@@ -1,0 +1,42 @@
+mapper:
+  mappings:
+    sourceTtarget:
+      sourceClass: com.protocol.translate.nested.bo.SourceDTO
+      targetClass: com.protocol.translate.nested.bo.TargetVO
+      fieldMappings:
+        - sourceField: code
+          targetField: code
+          converter: codeConverter
+        - sourceField: user.name
+          targetField: username
+        - sourceField: address.city
+          targetField: location.cityName
+          converter: cityConverter
+        - sourceField: createTime
+          targetField: timestamp
+          converter: dateToLong
+        - sourceField: numbers
+          targetField: numberList
+          converter: listConverter
+          elementconverter: stringToInteger
+        - sourceField: objectMap
+          targetField: stringMap
+          converter: mapConverter
+          keyConverter: upperCase
+          valueConverter: objectToString
+        - sourceField: cars
+          targetField: trucks
+          elementMappings:
+            - sourceClass: com.protocol.translate.nested.bo.Car
+              targetClass: com.protocol.translate.nested.bo.Truck
+              fieldMappings:
+                - sourceField: brand
+                  targetField: brand
+                - sourceField: houses
+                  targetField: builds
+                  elementMappings:
+                    - sourceClass: com.protocol.translate.nested.bo.House
+                      targetClass: com.protocol.translate.nested.bo.Build
+                      fieldMappings:
+                        - sourceField: type
+                          targetField: type
